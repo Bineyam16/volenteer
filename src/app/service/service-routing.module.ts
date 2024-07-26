@@ -18,11 +18,11 @@ const routes: Routes = [
   //   pathMatch: 'prefix'
   // },
 
-  {
-    path: "**",
-    component: AssignComponent,
-    pathMatch: "prefix",
-  },
+  // {
+  //   path: "**",
+  //   component: AssignComponent,
+  //   pathMatch: "prefix",
+  // },
   {
     path: "service/:formcode",
     component: ServiceComponent,
