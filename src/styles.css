@@ -1,0 +1,99 @@
+/* @import "~@angular/material/prebuilt-themes/deeppurple-amber.css"; */
+/* @import "~@angular/material/prebuilt-themes/pink-bluegrey.css"; */
+
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~primeng/resources/themes/saga-blue/theme.css";
+@import "~primeicons/primeicons.css";
+@import "~survey-angular/survey.css";
+@import "~primeng/resources/primeng.min.css";
+
+html,
+
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/*
+    common form styles
+*/
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.p-datatable>.p-datatable-wrapper {
+    overflow: inherit;
+}
+.id-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.id-card-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.customer-photo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+.id-card-body {
+  text-align: center;
+}
+
+.id-card-body h2 {
+  margin: 10px 0;
+  font-size: 1.5em;
+}
+
+.id-card-body p {
+  margin: 5px 0;
+}
+.p-field-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.2rem;
+}
+
+.p-field-group .p-field {
+  display: flex;
+  align-items: center;
+}
+
+.p-field-group .p-field label {
+  min-width: 120px;
+  font-weight: bold;
+}
+
+.p-field-group .p-field span {
+  flex-grow: 1;
+  overflow-wrap: break-word;
+}
+.p-component-overlay {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.p-component-overlay {
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,194 @@
+.custom-card {
+    width: 150%;
+    height: auto;
+    min-height: 300px; /* Adjust the minimum height as needed */
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ensure the content is centered vertically */
+  }
+  
+  .container-fluid {
+    padding: 0 15px; /* Adjust padding as needed */
+  }
+  .top-n-volunteers {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .top-n-input {
+    width: 120px; /* Adjust the width as needed */
+    height: 36px;
+    font-size: 14px;
+    padding: 0 12px;
+  }
+  
+  .top-n-button {
+    margin-left: 10px;
+    height: 36px;
+    font-size: 14px;
+    padding: 0 16px;
+  }
+  .custom-secondary-button {
+    background-color: #f8f9fa; /* Example for secondary color */
+    border-color: #ced4da;
+    color: #495057;
+}
+
+.custom-outlined-secondary-button {
+    border: 1px solid #ced4da;
+    color: #495057;
+    background-color: transparent;
+}
+.p-field-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5rem;
+}
+
+.p-field-group .p-field {
+  display: flex;
+  align-items: center;
+}
+
+.p-field-group .p-field label {
+  min-width: 120px;
+  font-weight: bold;
+}
+
+.p-field-group .p-field span {
+  flex-grow: 1;
+  overflow-wrap: break-word;
+}
+.card-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* Adjust height as needed */
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.card-avatar {
+  display: flex;
+  justify-content: center; /* Center the avatar horizontally */
+  align-items: center;     /* Center the avatar vertically */
+  margin: 0 auto;          /* Center the container horizontally */
+  padding: 1rem;           /* Add padding for spacing */
+}
+
+.img-avatar {
+  width: 150px;             /* Larger width */
+  height: 150px;            /* Larger height */
+  border-radius: 50%;       /* Keep the image circular */
+  object-fit: cover;        /* Maintain aspect ratio */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for visual effect */
+}
+
+.minimized-card {
+  width: 150px; /* Adjust width for a smaller card */
+  padding: 0.5rem; /* Reduced padding */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: lighter shadow */
+  border-radius: 8px;
+  text-align: center;
+  margin: 0 auto; /* Center horizontally */
+}
+.p-dialog .p-dialog-header {
+  padding: 0;          /* Reduce padding around the dialog header */
+  margin: 0;                /* Remove margin */
+  display: flex;
+  justify-content: center;  /* Center the content horizontally */
+  align-items: center;      /* Center the content vertically */
+}
+/* Styles for the card and table container */
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent overflow from the card itself */
+}
+
+.table-container {
+  width: 100%;
+  max-height: 400px; /* Adjust the height as needed */
+  overflow: auto; /* Enable scrollbars if content overflows */
+}
+
+.p-table {
+  width: 100%;
+}
+
+/* Additional styling to control table layout */
+.p-table table {
+  table-layout: fixed; /* Ensures the table layout is controlled */
+  width: 100%;
+}
+
+/* Styles to reduce spacing in headers and filters */
+.p-table th,
+.p-table td {
+  padding: 8px 16px; /* Adjust padding as needed */
+}
+
+.p-table th input {
+  width: 100%; /* Ensure input filters fit within their cells */
+}
+/* app.component.css */
+button[style*="background-color: red"] {
+  background-color: red !important;
+}
+
+button[style*="background-color: yellow"] {
+  background-color: yellow !important;
+}
+
+button[style*="background-color: green"] {
+  background-color: green !important;
+}
+/* Ensure the container is displayed correctly */
+.top-n-volunteers {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between elements */
+}
+
+.date-range-field {
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.thin-input {
+  width: 10px; /* Adjust the width as per your design needs */
+}
+
+
+.mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 10px 10px 0 10px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-label-wrapper {
+  top: -10px;
+}
+
+
+
+
+
+  

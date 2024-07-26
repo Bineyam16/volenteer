@@ -1,0 +1,637 @@
+<div *ngIf="isUser ">
+  <div class="notification2" >
+    <div class="notification2-content">
+      <p class="notification2-title"> You are not registered.</p>
+      <p class="notification2-message">
+        If you have already registered, you can
+        <a href="http://redc.xokait.com.et/en-us/login">Login</a>. If you are not registered, you can
+        <a href="http://redc.xokait.com.et/en-us/register">Register</a> .
+      </p>
+      <!-- <button class="close" (click)="closeNotification()">×</button> -->
+    </div>
+  </div>
+    
+    
+  </div>
+  <div *ngIf="!is_approved && !isUser && !service.isreview">
+    <div class="notification2" >
+      <div class="notification2-content">
+        <p class="notification2-message"> First, register as an Organization. Then, after your registration, you will receive an email "Registration approval" notification from ERCS. Then you can request Volunteers.
+
+          Many Thanks
+          ERCS.</p>
+
+        <!-- <button class="close" (click)="closeNotification()">×</button> -->
+      </div>
+    </div>
+      
+      
+    </div>
+<div *ngIf="!isUser && is_approved" class="main-content" style="margin-left: 17%;">
+  <ng-template matStepLabel>Personal Info</ng-template>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+      
+    <mat-horizontal-stepper #stepper (selectionChange)="onStepChange($event)">
+        <mat-step >
+          <ng-template matStepLabel>{{'Volunteer' | translate}}</ng-template>
+        <!-- <div class="card">
+          <div class="card-body"> -->
+            <div>
+              <div>
+            <form [formGroup]="backgroundForm" (ngSubmit)="submitForm()">
+              <div class="row">
+                <!-- <span>Service Area</span> -->
+                <mat-card class="example-card custom-card second-card">
+                  <mat-card-header>
+                    <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                    <mat-card-title class="custom-title" translate>Select Service Area</mat-card-title>
+                    <!-- <mat-card-subtitle>Card Subtitle</mat-card-subtitle> -->
+                  </mat-card-header>
+                 <mat-card-content>
+                  <div class="row">
+                    <div class="col-md-6">
+                      
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label translate>Service Area</mat-label >
+                        <mat-select  (selectionChange)="onSelectLanguage($event.value)" 
+                        formControlName="service_area" required>
+                          <mat-option value="First aid and community health promotion services">First aid and community health promotion services</mat-option>
+                          <mat-option value="Ambulance services">Ambulance services</mat-option>
+                          <mat-option value="First Aid Instruction services">First Aid Instruction services</mat-option>
+                          <mat-option value="ERCS community Health Services">ERCS community Health Services</mat-option>
+                          <mat-option value="Lonely, elderly and disabled people support services">Lonely, elderly and disabled people support services</mat-option>
+                          <mat-option value="Emergency response and stand by services">Emergency response and stand by services</mat-option>
+                          <mat-option value="Tracing Services">Tracing Services</mat-option>
+                          <mat-option value="Disaster Risk Reduction activities like terracing and reforestation">Disaster Risk Reduction activities like terracing and reforestation</mat-option>
+                          <mat-option value="Dissemination and membership drive services">Dissemination and membership drive services</mat-option>
+                          <mat-option value="Fund raising activities">Fund raising activities</mat-option>
+                          <mat-option value="Office services">Office services</mat-option>
+                          <mat-option value="Technical services">Technical services</mat-option>
+                          <mat-option value="Volunteer planning, implementation and coordination services">Volunteer planning, implementation and coordination services</mat-option>
+                          <mat-option value="Focal point services for other volunteer activities">Focal point services for other volunteer activities</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label translate>Requested Date</mat-label>
+                        <input matInput [matDatepicker]="picker3"  formControlName="requiested_date"  >
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+              <br>
+              
+              <mat-card class="example-card custom-card second-card">
+                <mat-card-header>
+                  <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                  <mat-card-title class="custom-title" translate>Select Volenteer/s within ERCS'S Structure</mat-card-title>
+                  <!-- <mat-card-subtitle>Card Subtitle</mat-card-subtitle> -->
+                </mat-card-header>
+                <mat-card-content>
+               <div class="col-md-6" >
+                 <!-- <mat-form-field class="example-full-width" appearance="outline">
+                   <mat-label>Region</mat-label>
+                   <mat-select (selectionChange)="onSelectLanguage($event.value)" 
+                   formControlName="region" required  name="stateRegion">
+                     <mat-option value="Amhara">Amhara</mat-option>
+                     <mat-option value="Tigray">Tigray</mat-option>
+                     <mat-option value="Gambela">Gambela</mat-option>
+                     <mat-option value="Harar">Harar</mat-option>
+                     <mat-option value="Oromia">Oromia</mat-option>
+                     <mat-option value="Sidama">Sidama</mat-option>
+                     <mat-option value="Afar">Afar</mat-option>
+                   </mat-select>
+                 </mat-form-field> -->
+                 <div class="row"></div>
+                 <mat-form-field class="example-full-width" appearance="outline">
+                   <mat-label translate>Region</mat-label>
+                   <mat-select formControlName="region" name="stateRegion" (selectionChange)="onRegionChange($event.value)">
+                     <mat-option *ngFor="let regions of region" [value]="regions.lkmaster_code">
+                       {{ regions.description }}
+                     </mat-option>
+                   </mat-select>
+                 </mat-form-field>
+               </div>
+             
+                <div class="col-md-6">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label translate>Zone</mat-label>
+                  <mat-select formControlName="zone" name="Zone"  (selectionChange)="onRegionChanges($event.value)">
+                    <mat-option *ngFor="let zone of zoneData" [value]="zone.lkmaster_code">
+                      {{ zone.description }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <div *ngIf="isSpecialRegion">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label translate>Subcity</mat-label>
+                  <mat-select formControlName="woreda" name="woreda" (selectionChange)="onRegionChangess($event.value)" >
+                    <mat-option *ngFor="let woredas of woreda" [value]="woredas.description">
+                      {{ woredas.description }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div *ngIf="!isSpecialRegion">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label translate>Woreda</mat-label>
+                  <mat-select formControlName="woreda" name="woreda" (selectionChange)="onRegionChangess($event.value)" >
+                    <mat-option *ngFor="let woredas of woreda" [value]="woredas.description">
+                      {{ woredas.description }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              </div>
+            
+             </mat-card-content>
+            </mat-card>
+            <mat-card class="example-card custom-card second-card">
+              <mat-card-header>
+                <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                <mat-card-title class="custom-title" translate>Select Volenteer/s out of ERCS'S Structure</mat-card-title>
+                <!-- <mat-card-subtitle>Card Subtitle</mat-card-subtitle> -->
+              </mat-card-header>
+             <mat-card-content>
+              <div class="col-md-12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label translate>Region/Zone/Woreda</mat-label>
+                  <input matInput  formControlName="non_ercs_zone">
+                </mat-form-field>
+              </div>
+             </mat-card-content>
+            </mat-card>
+  
+ 
+  
+
+         
+              <mat-card class="example-card custom-card second-card">
+                <mat-card-header>
+                  <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                  <mat-card-title class="custom-title" translate>Date</mat-card-title>
+                  <!-- <mat-card-subtitle>Card Subtitle</mat-card-subtitle> -->
+                </mat-card-header>
+               <mat-card-content>
+                
+                 <div class="row">
+                   <div class="col-md-6">
+                     <!-- <span>Start Date</span> -->
+                     <mat-form-field class="example-full-width" appearance="outline">
+                       <mat-label translate>Start Date</mat-label>
+                       <input matInput [matDatepicker]="picker1"  formControlName="start_date" required>
+                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                       <mat-datepicker #picker1></mat-datepicker>
+                     </mat-form-field>
+                     <!-- <span *ngIf="doblimit" class="dob-warning">You must be at least 12 years old</span> -->
+                   </div>
+                   <div class="col-md-6">
+                     <mat-form-field class="example-full-width" appearance="outline">
+                       <mat-label translate>End Date</mat-label>
+                       <input matInput [matDatepicker]="picker2"  formControlName="end_date" required>
+                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                       <mat-datepicker #picker2></mat-datepicker>
+                     </mat-form-field>
+                     <span *ngIf="doblimit" class="dob-warning">End Date must be greater than Start date</span>
+                   </div>
+                 </div>
+               </mat-card-content>
+              </mat-card>
+
+              <mat-card class="example-card custom-card second-card">
+                <mat-card-header>
+                  <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                  <mat-card-title class="custom-title" translate>Volenteer/s Service Detail Information</mat-card-title>
+                  <!-- <mat-card-subtitle>Card Subtitle</mat-card-subtitle> -->
+                </mat-card-header>
+               <mat-card-content>
+                
+                 <div class="row">
+                   <div class="col-md-6">
+                     <mat-form-field class="example-full-width" appearance="outline">
+                       <mat-label translate>Qualification</mat-label>
+                       <mat-select
+                         placeholder="Select Field Of Qualification"
+                         formControlName="qualification"
+                         multiple
+                         (selectionChange)="onQualificationChange($event.value)">
+                         <mat-option [value]="'Doctor'">Doctor</mat-option>
+                         <mat-option [value]="'Engineer'">Engineer</mat-option>
+                         <mat-option [value]="'Nurse'">Nurse</mat-option>
+                         <mat-option [value]="'Others'">Others</mat-option>
+                       </mat-select>
+                     </mat-form-field>
+                     
+                   </div>
+                   <div class="col-md-6">
+                     <mat-form-field class="example-full-width" appearance="outline">
+                       <mat-label translate>Administrative Arrangements</mat-label>
+                       <!-- <input matInput placeholder="Administrative Arrangements" formControlName="administrative_arrangment" required> -->
+                       <mat-select  (selectionChange)="onSelectLanguage($event.value)" 
+                       formControlName="administrative_arrangment" required multiple>
+                         <mat-option value="Accommodation">Accommodation</mat-option>
+                         <mat-option value="Meals">Meals</mat-option>
+                         <mat-option value="Transportation">Transportation</mat-option>
+                       </mat-select>
+                     </mat-form-field>
+   
+                   </div>
+                   
+                   
+                   <div *ngIf="showOtherInput" class="col-md-6 mt-3">
+                     <mat-form-field class="example-full-width" appearance="outline">
+                       <mat-label translate>Specify Your Qualification</mat-label>
+                       <input matInput formControlName="otherQualification" placeholder="Enter your qualification">
+                     </mat-form-field>
+                   </div>
+                   
+                   
+                 </div>
+                 <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label translate>Total Number Of Volunteers</mat-label>
+                      <input matInput type="number"  formControlName="no_volunteer" required>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label translate>Total Working days</mat-label>
+                      <input matInput placeholder="Number of days" formControlName="no_day" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+                 <div class="row">
+                   <div class="col-md-12">
+                     <mat-form-field class="example-full-width" appearance="outline">
+                       <mat-label translate>Specify The Amount of Volenteer</mat-label>
+                       <textarea matInput  formControlName="comment"></textarea>
+                     </mat-form-field>
+                   </div>
+                 </div>
+                 
+                 <div class="row">
+                   <div class="col-md-12">
+                     <mat-form-field class="example-full-width" appearance="outline">
+                       <mat-label translate>Required Skill</mat-label>
+                       <textarea matInput  formControlName="required_skill"></textarea>
+                     </mat-form-field>
+                   </div>
+                 </div>
+               </mat-card-content>
+              </mat-card>
+    
+            </div>
+              <div class="form-actions">
+                <button mat-raised-button type="button" (click)="saveed() " [hidden]="isEdit || service.isreview" class="btn btn-danger pull-right">{{'Save'| translate}}</button>
+                <!-- <button mat-raised-button type="button" (click)=" save()" [hidden]="isEdit || service.isreview" class="btn btn-danger pull-right">Savee</button> -->
+                <button mat-raised-button  class="btn btn-primary pull-right" [hidden]="!isEdit || service.isreview" (click)="Add()" >{{'Add More Service Area'| translate}}</button>
+                <button mat-raised-button type="button" (click)="update()" [hidden]="!isEdit || service.isreview" class="btn btn-success pull-right">{{'Update'| translate}}</button>
+                <button type="button" mat-button matStepperNext class="next-button"  style="margin-left: 90%;">{{'Next' | translate}}</button>
+                <div class="clearfix"></div>
+              </div>
+
+            </form>
+            <p-dialog 
+  header="Specify your Qualification" 
+  [(visible)]="showDialog" 
+  [modal]="true" 
+  [closable]="false" 
+  [responsive]="true" 
+
+  [baseZIndex]="10000">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="customQualification">Custom Qualification</label>
+      <input 
+        pInputText 
+        id="customQualification" 
+        [(ngModel)]="customQualification">
+    </div>
+  </div>
+  <p-footer>
+    <button 
+      pButton 
+      type="button" 
+      label="Cancel" 
+      icon="pi pi-times" 
+      (click)="onCancel()"></button>
+    <button 
+      pButton 
+      type="button" 
+      label="Submit" 
+      icon="pi pi-check" 
+      (click)="onSubmit()"></button>
+      
+  </p-footer>
+</p-dialog>
+            <p-table #table [value]="alldata" [rows]="3" selectionMode="single" [(selection)]="selectedRow"
+            (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()">
+     <ng-template pTemplate="header">
+       <tr>
+         <th translate>Service Area</th>
+         <th translate>Administrative Arrangements</th>
+         <th translate>Qualification</th>
+         <!-- <th>Region</th> -->
+         <th translate>Required Skill</th>
+         <th translate>Start Date</th>
+     
+         <th translate>End Date</th>
+       </tr>
+     </ng-template>
+     <ng-template pTemplate="body" let-data>
+       <tr [pSelectableRow]="data">
+         <td>{{ data.service_area }}</td>
+         
+         <td>{{ data.administrative_arrangment }}</td>
+         <td>{{ data.qualification }}</td>
+         <!-- <td>{{ data.region }}</td> -->
+         <td>{{ data.required_skill }}</td>
+         <td>{{ data.start_date }}</td>
+         <td>{{ data.end_date }}</td>
+       </tr>
+     </ng-template>
+   </p-table>
+   
+            
+         
+            
+          </div>
+        </div>
+      
+      </mat-step>
+      <mat-step *ngIf="!service.isreview">  
+        <ng-template matStepLabel>{{'Info' | translate}}</ng-template>
+        <div class="survey-container contentcontainer codecontainer">
+  <div [id]="ID" ></div>
+  <button type="button" matStepperPrevious mat-button  class="prev-button" (click)="prev()">{{'Previous' | translate}}</button> 
+  <button type="button" mat-button matStepperNext class="next-button"  [hidden] ="service.isreview" style="margin-left: 90%;">{{'Next'| translate}}</button>
+</div>
+
+      </mat-step>
+      <mat-step *ngIf="service.isreview">  
+        <ng-template matStepLabel>{{'Info'| translate}}</ng-template>
+        <div class="survey-container contentcontainer codecontainer">
+  <div [id]="ID3" ></div>
+</div>
+      </mat-step>
+      <mat-step *ngIf="!service.isreview" >
+        <ng-template matStepLabel>{{'File Upload' | translate}}</ng-template>
+        <div class="main-content">
+          <app-files>
+
+          </app-files>
+          <button type="button" matStepperPrevious mat-button  class="prev-button" >{{'Previous' | translate}}</button> 
+          <button type="button" (click)="disableFormControls()" mat-button matStepperNext class="next-button"  style="margin-left: 90%;">{{'Next' | translate}}</button>
+        </div>
+     
+      </mat-step>
+      <mat-step *ngIf="!service.isreview" >
+        <ng-template matStepLabel>Validate</ng-template>
+        <p-accordion>
+          <p-accordionTab header="Request">
+            <div class="card">
+              <div class="card-body" id="Request">
+                <form [formGroup]="backgroundForm" (ngSubmit)="submitForm()">
+                  <div class="row">
+                    <!-- <span>Service Area</span> -->
+                    <div class="col-md-6">
+                      
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Service Area</mat-label >
+                        <mat-select  (selectionChange)="onSelectLanguage($event.value)" 
+                        formControlName="service_area" required>
+                          <mat-option value="First aid and community health promotion services">First aid and community health promotion services</mat-option>
+                          <mat-option value="Ambulance services">Ambulance services</mat-option>
+                          <mat-option value="First Aid Instruction services">First Aid Instruction services</mat-option>
+                          <mat-option value="ERCS community Health Services">ERCS community Health Services</mat-option>
+                          <mat-option value="Lonely, elderly and disabled people support services">Lonely, elderly and disabled people support services</mat-option>
+                          <mat-option value="Emergency response and stand by services">Emergency response and stand by services</mat-option>
+                          <mat-option value="Tracing Services">Tracing Services</mat-option>
+                          <mat-option value="Disaster Risk Reduction activities like terracing and reforestation">Disaster Risk Reduction activities like terracing and reforestation</mat-option>
+                          <mat-option value="Dissemination and membership drive services">Dissemination and membership drive services</mat-option>
+                          <mat-option value="Fund raising activities">Fund raising activities</mat-option>
+                          <mat-option value="Office services">Office services</mat-option>
+                          <mat-option value="Technical services">Technical services</mat-option>
+                          <mat-option value="Volunteer planning, implementation and coordination services">Volunteer planning, implementation and coordination services</mat-option>
+                          <mat-option value="Focal point services for other volunteer activities">Focal point services for other volunteer activities</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6" >
+                      <!-- <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Region</mat-label>
+                        <mat-select (selectionChange)="onSelectLanguage($event.value)" 
+                        formControlName="region" required  name="stateRegion">
+                          <mat-option value="Amhara">Amhara</mat-option>
+                          <mat-option value="Tigray">Tigray</mat-option>
+                          <mat-option value="Gambela">Gambela</mat-option>
+                          <mat-option value="Harar">Harar</mat-option>
+                          <mat-option value="Oromia">Oromia</mat-option>
+                          <mat-option value="Sidama">Sidama</mat-option>
+                          <mat-option value="Afar">Afar</mat-option>
+                        </mat-select>
+                      </mat-form-field> -->
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Region</mat-label>
+                        <mat-select formControlName="region" name="stateRegion" (selectionChange)="onRegionChange($event.value)">
+                          <mat-option *ngFor="let regions of region" [value]="regions.lkmaster_code">
+                            {{ regions.description }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Zone</mat-label>
+                      <mat-select formControlName="zone" name="Zone"  (selectionChange)="onRegionChanges($event.value)">
+                        <mat-option *ngFor="let zone of zoneData" [value]="zone.lkmaster_code">
+                          {{ zone.description }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Woreda</mat-label>
+                      <mat-select formControlName="woreda" name="woreda" (selectionChange)="onRegionChangess($event.value)" >
+                        <mat-option *ngFor="let woredas of woreda" [value]="woredas.description">
+                          {{ woredas.description }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Number Of Volunteers</mat-label>
+                        <input matInput type="number"  formControlName="no_volunteer" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Requested Date</mat-label>
+                        <input matInput [matDatepicker]="picker3"  formControlName="requiested_date"  >
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Number of days</mat-label>
+                        <input matInput placeholder="Number of days" formControlName="no_day" required>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <!-- <span>Start Date</span> -->
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Start Date</mat-label>
+                        <input matInput [matDatepicker]="picker1"  formControlName="start_date" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                      <!-- <span *ngIf="doblimit" class="dob-warning">You must be at least 12 years old</span> -->
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>End Date</mat-label>
+                        <input matInput [matDatepicker]="picker2"  formControlName="end_date" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                      </mat-form-field>
+                      <span *ngIf="doblimit" class="dob-warning">End Date must be greater than Start date</span>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Required Skill</mat-label>
+                        <input matInput  formControlName="required_skill" required>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Qualification</mat-label>
+                        <mat-select 
+                          placeholder="Select Field Of Qualification" 
+                          formControlName="qualification" 
+                          
+                    formControlName="administrative_arrangment" required 
+                    (selectionChange)="onQualificationChange($event.value)" >
+                          <mat-option [value]="'Doctor'">Doctor</mat-option>
+                          <mat-option [value]="'Engineer'">Engineer</mat-option>
+                          <mat-option [value]="'Nurse'">Nurse</mat-option>
+                          <mat-option [value]="'Others'">Others</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Administrative Arrangements</mat-label>
+                        <!-- <input matInput placeholder="Administrative Arrangements" formControlName="administrative_arrangment" required> -->
+                        <mat-select  (selectionChange)="onSelectLanguage($event.value)" 
+                        formControlName="administrative_arrangment" required multiple>
+                          <mat-option value="Accommodation">Accommodation</mat-option>
+                          <mat-option value="Meals">Meals</mat-option>
+                          <mat-option value="Transportation">Transportation</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+    
+                    </div>
+                    
+                    
+                    <div *ngIf="showOtherInput" class="col-md-6 mt-3">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Specify Your Qualification</mat-label>
+                        <input matInput formControlName="otherQualification" placeholder="Enter your qualification">
+                      </mat-form-field>
+                    </div>
+                    
+                    
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Additional Comment</mat-label>
+                        <textarea matInput  formControlName="comment"></textarea>
+                      </mat-form-field>
+                    </div>
+                  </div>
+          
+    
+                </form>
+                <p-table #table [value]="alldata" [rows]="3" selectionMode="single" [(selection)]="selectedRow"
+                (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()">
+         <ng-template pTemplate="header">
+           <tr>
+             <th>Service Area</th>
+             <th>Administrative Arrangements</th>
+             <th>Qualification</th>
+             <th>Region</th>
+             <th>Required Skill</th>
+             <th>Start Date</th>
+             <th>End Date</th>
+           </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-data>
+           <tr [pSelectableRow]="data">
+             <td>{{ data.service_area }}</td>
+             <td>{{ data.administrative_arrangment }}</td>
+             <td>{{ data.qualification }}</td>
+             <td>{{ data.region }}</td>
+             <td>{{ data.required_skill }}</td>
+             <td>{{ data.start_date }}</td>
+             <td>{{ data.end_date }}</td>
+           </tr>
+         </ng-template>
+       </p-table>
+       
+                
+             
+                
+              </div>
+            </div>
+          </p-accordionTab>
+          <p-accordionTab header="Survy">
+            <div class="survey-container contentcontainer codecontainer" id="surveyy">
+              <div [id]="ID2" ></div>
+            </div>
+          </p-accordionTab>
+          <p-accordionTab header="File">
+            <div class="main-content" id="fileUpload">
+            <app-files>
+
+            </app-files>
+          </div>
+          </p-accordionTab>
+        </p-accordion>
+        <button type="button" matStepperPrevious mat-button  class="prev-button" (click)="prev(); enableFormControls()">{{'Previous' | translate}}</button> 
+        <button type="button" mat-button (click)="exportAllAsPDF()">{{'Export All as PDF' | translate}}</button>
+        <button type="button"  mat-button  class="btn btn-primary" [disabled]="backgroundForm.invalid"  (click)="Submit('00000000-0000-0000-0000-000000000000')" style="margin-left: 80%;">
+          Submit/ላከው
+        </button>
+      </mat-step>
+    </mat-horizontal-stepper>
+      </div>
+    </div>
+  </div>
+</div>  
+<div class="stepper-buttons">
+   
+  <!-- <button type="button"  mat-button  class="btn btn-primary" [disabled]="backgroundForm.invalid"  (click)="Submit('00000000-0000-0000-0000-000000000000')">
+    Submit/ላከው
+  </button> -->
+  
+</div>
+<p-toast position="bottom-right"></p-toast>

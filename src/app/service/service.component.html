@@ -1,0 +1,492 @@
+
+
+<div class="p-3 bg-success text-white">
+  <table class="table">
+   
+    <thead>
+      <tr class="custom-bg-success" *ngIf = "licenceData">
+        <th id="Applicationno" scope="col" >
+          <span for="Applicationno" >Application No:</span>
+          {{ licenceData.Application_No  }}
+        </th>
+        
+        <th id="serviceName" scope="col" >
+          <span for="serviceName" > Services:</span>
+          {{ licenceData.Service_Name}}
+        </th>
+      </tr>
+    </thead>
+  
+  </table>
+</div>
+<div class="card flex justify-content-center">
+  <!-- Trigger button for Bootstrap Offcanvas -->
+  <div *ngIf ="serviceService.actiontab" style="width: 50%;">
+<button class="btn btn-primary custom-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+  Upload and Post it not
+</button>
+</div>
+<!-- Bootstrap Offcanvas -->
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Upload and Post it not</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="w-10">
+      <div class="form-row mt-5">
+        <div class="col-md-12 m-0">
+          <div *ngIf="validated">
+            <div *ngIf="RequerdDocs">
+              <form #f="ngForm" novalidate name="proform">
+                <div class="form-group row col-md-12" *ngFor="let RequiredDoc of RequerdDocs; let i = index;">
+                  <label class="col-md-4 col-form-label">
+                    {{RequiredDoc.description_en }}
+                  </label>
+                  <div class="col-md-8">
+                    <div>
+                      <p-fileUpload *ngIf="!RequiredDoc.File" #fild id="File" name="demo[]" [customUpload]="true"
+                        (uploadHandler)="upload($event,RequiredDoc,fild)" [auto]="true" 
+                        accept=".pdf,.jpg,.jfif,.png,.gif,.doc,.docx,.xls,.xlsx,.csv,.geojson,.zip" 
+                        [chooseLabel]="'UPLOAD'" [maxFileSize]="2900000">
+                      </p-fileUpload>
+                      <div *ngIf="uploadedDocumnet && RequiredDoc.File" [hidden]="disDocument">
+                        <iframe width="100%" [src]="documentupload" alt="FileUPloaded" class="pdf-ifram"></iframe>
+                      </div>
+                      <div class="alert alert-warning" role="alert" *ngIf="!RequiredDoc.File && !loadingPreDoc">
+                        {{'Document not uploaded!'}}
+                      </div>
+                      <div *ngIf="RequiredDoc.File">
+                        <button type="button" class="btn btn-primary" (click)="removeUpload(RequiredDoc)" translate>Remove</button>
+                      </div>
+                      <div *ngIf="RequiredDoc.required">
+                        <input type="hidden" class="form-control" #file="ngModel" [(ngModel)]="RequiredDoc.File"
+                          [name]="RequiredDoc.description_en" id="NumberOfLift{{i}}" placeholder="Number of Lift" required>
+                        <div *ngIf="file.invalid">
+                          <span class="text-danger" translate>REQUIRED</span>
+                        </div>
+                      </div>
+                      <div *ngIf="RequiredDoc.File">
+                        <div *ngIf="['image/jpeg', 'image/png', 'image/gif'].includes(RequiredDoc.fileType)">
+                          <img height="30%" width="30%" [src]="RequiredDoc.File" alt="FileUPloaded" />
+                        </div>
+                        <div *ngIf="RequiredDoc.fileType === 'application/pdf'">
+                          <iframe width="100%" [src]="RequiredDoc.File" alt="FileUPloaded" class="pdf-ifram"></iframe>
+                        </div>
+                        <div *ngIf="!['application/pdf', 'image/jpeg', 'image/png', 'image/gif'].includes(RequiredDoc.fileType)">
+                          <div class="alert alert-info">
+                            Document uploaded!
+                          </div>
+                        </div>
+                        <span>
+                          <span translate>File name</span>: {{ RequiredDoc.fileName }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div *ngIf="!validated">
+            <span class="text-primary" translate>Need to save first, to upload files and write post in notes</span>
+          </div>
+        </div>
+        <div class="form-group row col-sm-10 m-0" *ngIf="validated">
+          <label translate>post in note</label>
+          <textarea class="form-control mx-2 mb-2 border-primary" id="note" rows="4" 
+            style="background: rgb(202, 236, 255)" [(ngModel)]="NoteObj.remarks" 
+            placeholder="write post in note here ...">
+          </textarea>
+          <button type="button" class="btn btn-primary mx-2" *ngIf="!issendnote" (click)="addNote()" translate>Save</button>
+          <button type="button" class="btn btn-primary" *ngIf="issendnote" (click)="sendNote()">
+            <span class="fa fa-telegram"></span> <span translate>Send</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- <p-sidebar [(visible)]="sidebarVisible" [style]="{ 'width': '50%' }">
+      <ng-template pTemplate="header">
+          <span class="font-semibold text-xl">
+              
+          </span>
+      </ng-template>
+      <div class="w-10">
+
+        <div class="form-row mt-5">
+
+          <div class="col-md-12 m-0">
+            <div *ngIf="validated">
+
+
+              <div *ngIf="RequerdDocs">
+
+                <form #f="ngForm" novalidate name="proform">
+                  <div class="form-group row col-md-12" *ngFor="let RequiredDoc of RequerdDocs; let i = index;">
+                    <label  class="col-md-4 col-form-label">
+                      {{RequiredDoc.description_en }}
+                    </label>
+                    <div class="col-md-8">
+                      <div>
+
+                      </div>
+                      <div *ngIf="!RequiredDoc.File">
+                        <p-fileUpload #fild id="File" name="demo[]" [customUpload]="true"
+                        (uploadHandler)="upload($event,RequiredDoc,fild)" [auto]="true" 
+                        accept=".pdf,.jpg,.jfif,.png,.gif,.doc,.docx,.xls,.xlsx,.csv,.geojson,.zip" [chooseLabel]="'UPLOAD' "
+                        [maxFileSize]="2900000">
+                      </p-fileUpload>
+                      </div>
+                      <div *ngIf="uploadedDocumnet && RequiredDoc.File" [hidden]="disDocument" >
+                        <div>
+                        <iframe width="100%" [src]="documentupload" alt="FileUPloaded"  class="pdf-ifram"></iframe>
+                        
+                           </div>
+                          </div> 
+                          <div class="alert alert-warning" role="alert" *ngIf="!RequiredDoc.File && !loadingPreDoc">
+                            {{'Document not uploaded!'}}
+                          </div>
+                      <div *ngIf="RequiredDoc.File">
+                        <button type="button" class="btn btn-primary" (click)="removeUpload(RequiredDoc)"
+                          translate>Remove</button>
+                      </div>
+                      <div *ngIf="RequiredDoc.required">
+                        <input type="hidden" class="form-control" #file="ngModel" [(ngModel)]="RequiredDoc.File"
+                          [name]="RequiredDoc.description_en" id="NumberOfLift{{i}}" placeholder="Number of Lift"
+                          required>
+                        <div *ngIf="file.invalid">
+                          <span class="text-danger" translate>REQUIRED</span>
+                        </div>
+                      </div>
+                      <div *ngIf="RequiredDoc.File">
+                        <div
+                          *ngIf="RequiredDoc.fileType === 'image/jpeg' || RequiredDoc.fileType === 'image/png' || RequiredDoc.fileType === 'image/gif'">
+                          <img height="30%" width="30%" [src]="RequiredDoc.File" alt="FileUPloaded" />
+                        </div>
+                        <div *ngIf="RequiredDoc.fileType === 'application/pdf'">
+                          <iframe width="100%" [src]="RequiredDoc.File" alt="FileUPloaded"
+                            class="pdf-ifram"></iframe>
+                        </div>
+                        <div
+                          *ngIf="RequiredDoc.fileType !== 'application/pdf' && RequiredDoc.fileType !== 'image/jpeg' && RequiredDoc.fileType !== 'image/png' && RequiredDoc.fileType !== 'image/gif'">
+                          <div class="alert alert-info">
+                            Document uploaded!
+                          </div>
+                        </div>
+                        <span>
+                          <span translate>File name</span>: {{ RequiredDoc.fileName }}</span>
+                      </div>
+
+                    </div>
+
+
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div *ngIf="!validated">
+              <span  class="text-primary" translate>Need to save first, to upload files and write post in
+                notes</span>
+            </div>
+          </div>
+
+          <div class="form-group row col-sm-10 m-0" *ngIf="validated">
+            <label translate>post in note</label>
+            <textarea class="form-control mx-2 mb-2 border-primary" id="note" rows="4" style="background: rgb(202, 236, 255)"
+              [(ngModel)]="NoteObj.remarks" placeholder="write post in note here ...">
+                            </textarea>
+            <button type="button" class="btn btn-primary mx-2" *ngIf="!issendnote"
+              (click)="addNote()" translate>Save</button>
+             <button type="button" class="btn btn-primary mx-4" *ngIf="issendnote"
+              (click)="saveNote()" translate>Edit</button> 
+             <button type="button" class="btn btn-danger mx-4" *ngIf="issendnote"
+              (click)="DeleteNote()" translate>Delete</button> 
+            <button type="button" class="btn btn-primary" *ngIf="issendnote"
+              (click)="sendNote()">
+              <span class="fa fa-telegram"></span> <span translate>Send</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+       <button type="button" class="btn btn-success my-4" (click)="_toggleOpened()" translate>Close Upload</button> 
+      <div>
+
+      </div>
+  
+
+    <div ng-sidebar-content>
+      <header class="demo-header">
+        <button (click)="_toggleOpened()" type="button" class="demo-header__toggle" >Toggle
+          sidebar</button> 
+        
+        
+        
+      </header> 
+    
+
+       <section class="demo-contents">
+
+
+        <div>
+          <div id="surveyElement"></div> 
+          <div *ngIf="ID==0;">
+            <div class="m-3">
+              <app-servyjson (completed)="saveFormmjson($event)" [formcode]="formcode"
+                [formData]="FormData"></app-servyjson>
+            </div>
+          </div>
+          <div *ngIf = "ID==16">
+            <app-organizations>
+            
+            </app-organizations>
+          </div>
+          <div *ngIf = "ID==17">
+            <app-organization-request >
+          
+            </app-organization-request>
+          </div>
+          <div *ngIf="ID==13;">
+            <app-assign [disable]="false" (completed)="EnableFins();saveFormm2('{}');">
+          
+            </app-assign>
+          </div>
+      
+       
+
+        </div>
+
+      </section> 
+    </div>
+
+  </p-sidebar>
+  <p-button (click)="sidebarVisible = true" icon="pi pi-window-maximize" />
+</div> -->
+<div id="surveyElement"></div> 
+<div *ngIf="ID==0;">
+  <div class="m-3">
+    <app-servyjson (completed)="saveFormmjson($event)" [formcode]="formcode"
+      [formData]="FormData"></app-servyjson>
+  </div>
+</div>
+
+<div *ngIf = "ID==16">
+  <app-organizations>
+  
+  </app-organizations>
+</div>
+<div *ngIf = "ID==17">
+  <app-organization-request >
+
+  </app-organization-request>
+</div>
+<div *ngIf="ID==13;">
+  <app-assign [disable]="false" (completed)="EnableFins();saveFormm2('{}');">
+
+  </app-assign>
+</div>
+<div
+  class="p-3 border-secondary border-5 bg-secondary text-white h-10 text-center m-10 mt-10"
+>
+  <div class="btn-group" >
+
+    <button type="button" class="btn btn-primary mr-2" (click)="displayRivew=true;serviceService.isreview=true">
+     {{'Review'| translate}}
+  </button>
+
+  
+    <span class="dropdown dropup">
+      <button [disabled]="serviceService.disablefins" type="button" class="btn btn-primary dropdown-toggle mr-2"
+        data-toggle="dropdown" >{{'Required Action'| translate}}</button>
+
+      <span class="dropdown-menu">
+        <a class="dropdown-item" *ngIf="tskTyp2 != 'c800fb16-f961-e111-95d6-00e04c05559b'"
+          (click)="Submit('00000000-0000-0000-0000-000000000000')">Submit/ላከው</a>
+        <span *ngIf="tskTyp2 == 'c800fb16-f961-e111-95d6-00e04c05559b'">
+          <span *ngFor="let DropDownLists of DropDownList">
+            <a class="dropdown-item" (click)="SubmitAR(DropDownLists.task_rules_code)">{{DropDownLists.decision_rule_en}}
+            </a>
+            <li class="divider dropdown-divider"></li>
+          </span>
+        </span>
+      </span>
+    </span>
+
+
+    <button class="btn btn-primary mr-2" (click)= "Close(); EnableFins()" >{{'Pend & close'| translate}}</button>
+  </div>
+ <!-- service.component.html -->
+ <p-dialog [(visible)]="displayRivew"  
+ [style]="{'min-height':'10%','height':'800px','min-width':'10%','width':'80%'}">
+ 
+   <p-header>Review</p-header>
+ 
+   <div class="modal-body" style="z-index: 10001;">
+     <div>
+       <div class="col-sm-12">
+         
+         <!-- Application Number Section -->
+         <div *ngIf="ifAppNo" class="col-sm-12 row mb-3 align-items-center">
+           <div class="col-sm-2">Application No</div>
+           <mat-form-field appearance="fill" class="col-sm-10">
+             <mat-label>Application No</mat-label>
+             <mat-select [(value)]="AppN" (selectionChange)="getAppData($event.value)" id="ApplicationLIst">
+               <mat-option value="">Select an application</mat-option>
+               <mat-option *ngFor="let AppNo of AppNoList" [value]="AppNo.application_No">
+                 {{AppNo.application_No}}
+               </mat-option>
+             </mat-select>
+           </mat-form-field>
+         </div>
+ 
+         <!-- Task Name Section -->
+         <div class="col-sm-12 row mb-3 align-items-center">
+           <div class="col-sm-2">Task Name</div>
+           <mat-form-field appearance="fill" class="col-sm-10">
+             <mat-label>Task Name</mat-label>
+             <mat-select [(value)]="TaskN" (selectionChange)="getTaskData($event.value)" id="TaskList">
+               <mat-option value="">Select a task</mat-option>
+               <mat-option *ngFor="let Task of PreAppData" [value]="Task.tasks_task_code">
+                 {{Task.description_en}}
+               </mat-option>
+             </mat-select>
+           </mat-form-field>
+         </div>
+ 
+         <!-- Task Data Table -->
+         <!-- <p-table *ngIf="TaskN" [value]="PreTaskData" [paginator]="true" [rows]="5">
+           <ng-template pTemplate="header">
+             <tr>
+               <th scope="col">Status</th>
+               <th scope="col">Start Date</th>
+               <th scope="col">End Date</th>
+               <th scope="col">Level</th>
+               <th scope="col"></th>
+             </tr>
+           </ng-template>
+           <ng-template pTemplate="body" let-task>
+             <tr [class.active]="task.selected">
+               <td>{{task.status}}</td>
+               <td>{{task.start_date}}</td>
+               <td>{{task.end_date}}</td>
+               <td>{{task.level}}</td>
+               <td>
+                 <button type="button" class="btn btn-primary" (click)="SelectTask(task)">Select</button>
+               </td>
+             </tr>
+           </ng-template>
+         </p-table> -->
+         <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Status</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">End Date</th>
+              <th scope="col">Level</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <ng-template pTemplate="body" *ngFor="let task of PreTaskData"> -->
+              <tr *ngFor="let task of PreTaskData">
+
+                <td>{{task.status}}</td>
+                <td>{{task.start_date}}</td>
+                <td>{{task.end_date}}</td>
+                <td>{{task.level}}</td>
+                <td>
+                  <button type="button" class="btn btn-primary" (click)="SelectTask(task)">Select</button>
+                </td>
+              </tr>
+            <!-- </ng-template> -->
+           
+          </tbody>
+        </table>
+         <!-- Tabs Section -->
+         <div class="mt-3">
+           <p-tabView>
+             <p-tabPanel header="Form">
+               <div class="mt-3">
+                 <div [ngSwitch]="preAppID">
+                   <div *ngSwitchCase="1">
+                     <!-- Add your form display here -->
+                   </div>
+                   <div *ngSwitchCase="23">
+                     <app-assign [disable]="false" (completed)="EnableFins(); saveFormm2('{}');"></app-assign>
+                   </div>
+                   <div *ngSwitchCase="3">
+                     <app-organizations [orgData]="orgDetails"></app-organizations>
+                   </div>
+                   <div *ngSwitchCase="2">
+                     <app-organization-request [orgData]="orgDetails"></app-organization-request>
+                   </div>
+                   <div *ngSwitchCase="1" id="dform">
+                     <app-form-display [formcode]="selectedTask.form_code" [formData]="selectedTask.JsonData" [Mode]="'display'"></app-form-display>
+                   </div>
+                 </div>
+               </div>
+             </p-tabPanel>
+             
+
+            <p-tabPanel header="Document">
+              <div class="mt-3">
+                <div *ngIf="RequerdDocspre">
+                  <div class="form-group row col-sm-12 m-0" *ngFor="let RequerdDocpre of RequerdDocspre; let i = index">
+                    <label class="col-sm-12 col-form-label m-0">{{ RequerdDocpre.description_en }}</label>
+                    <div class="col-sm-12 m-0 text-center">
+                      <div *ngIf="loadingPreDoc">
+                        <p-progressSpinner [style]="{ width: '50px', height: '50px' }" strokeWidth="4"></p-progressSpinner>
+                      </div>
+                      <div class="alert alert-warning" role="alert" *ngIf="!RequerdDocpre.File && !loadingPreDoc">
+                        Document not uploaded!
+                      </div>
+                      <div *ngIf="RequerdDocpre.File">
+                        <div *ngIf="!RequerdDocpre.File">
+                          <p-progressSpinner [style]="{ width: '50px', height: '50px' }" strokeWidth="4"></p-progressSpinner>
+                        </div>
+                        <div *ngIf="mimeExtension[RequerdDocpre.mimeType].extension == 'pdf' || mimeExtension[RequerdDocpre.mimeType].extension == 'docx'">
+                          <iframe width="100%" [src]="RequerdDocpre.File" alt="FileUPloaded" class="pdf-ifram"></iframe>
+                        </div>
+                        <div *ngIf="mimeExtension[RequerdDocpre.mimeType].extension == 'jpg' || mimeExtension[RequerdDocpre.mimeType].extension == 'png' || mimeExtension[RequerdDocpre.mimeType].extension == 'gif'">
+                          <img width="100%" [src]="RequerdDocpre.File" alt="FileUPloaded" />
+                        </div>
+                        <div *ngIf="!mimeExtension[RequerdDocpre.mimeType].previewable">
+                          <div class="alert alert-info">
+                            <a [href]="RequerdDocpre.File" [download]="RequerdDocpre.description_en + '.' + mimeExtension[RequerdDocpre.mimeType].extension">
+                              Attached - Please download!
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-tabPanel>
+          </p-tabView>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-footer>
+    <button type="button" class="btn btn-primary" (click)="displayRivew = false">Done</button>
+  </p-footer>
+</p-dialog>
+
+ 
+
+
+
+
+
+</div>
+<!-- <p-toast position="top-right"></p-toast> -->

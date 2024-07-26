@@ -1,0 +1,63 @@
+<div>
+
+    <div class="form-row mt-5">
+      <div class="col-md-12">
+        <div *ngIf="serviceService.RequiredDocs">
+          <form #f="ngForm" novalidate name="proform">
+            <div class="form-group row col-md-12" *ngFor="let RequiredDoc of serviceService.RequiredDocs; let i = index;" id="{{i}}">
+              <label for="File" class="col-md-4 col-form-label">
+                {{ language === 'amharic' ? RequiredDoc.description_Local : RequiredDoc.description_en }}
+              </label>
+              <div class="col-md-8">
+                <div>
+  
+                </div>
+                <div *ngIf="!RequiredDoc.File">
+                  <div class="upload-container">
+                    <p-fileUpload #fild id="File" name="demo[]" [customUpload]="true"
+                                  (uploadHandler)="upload($event, RequiredDoc, fild)" [auto]="true" [disabled]="disabled"
+                                  accept=".pdf,.jpg,.jfif,.png,.gif,.doc,.docx,.xls,.xlsx,.csv,.geojson,.zip" [chooseLabel]="'UPLOAD'"
+                                  [maxFileSize]="2900000">
+                    </p-fileUpload>
+                  
+                    <!-- Loading Indicator -->
+                    <div *ngIf="loading" class="loading-indicator">
+                      <p-progressSpinner></p-progressSpinner>
+                      <p>Uploading...</p>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div *ngIf="RequiredDoc.File">
+                  <button type="button" class="btn btn-primary" (click)="removeUpload(RequiredDoc)" [disabled] ="disabled">Delete</button>
+                </div>
+                <div *ngIf="RequiredDoc.required">
+                  <input type="hidden" class="form-control" #file="ngModel" [(ngModel)]="RequiredDoc.File"
+                    [name]="RequiredDoc.description_en" id="NumberOfLift" placeholder="Number of Lift" required>
+                  <div *ngIf="file.invalid">
+                    <span class="text-danger">REQUIRED</span>
+                  </div>
+                </div>
+                <div *ngIf="RequiredDoc.File">
+                  <div
+                    *ngIf="RequiredDoc.fileType !== 'image/jpeg' && RequiredDoc.fileType !== 'image/png' && RequiredDoc.fileType !== 'image/gif' && RequiredDoc.fileType !== 'application/pdf'">
+                    <div class="alert alert-info">
+                      Document uploaded!
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="RequiredDoc.fileType === 'image/jpeg' || RequiredDoc.fileType === 'image/png' || RequiredDoc.fileType === 'image/gif'">
+                    <img height="30%" width="30%" [src]="RequiredDoc.File" alt="FileUPloaded" />
+                  </div>
+                  <div *ngIf="RequiredDoc.fileType === 'application/pdf'">
+                    <iframe width="100%" [src]="RequiredDoc.File" alt="FileUPloaded" class="pdf-ifram"></iframe>
+                  </div>
+                  <span>File name: {{ RequiredDoc.fileName }}</span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,480 @@
+<ng-template >Assigned List</ng-template>
+<div class="main-content" style="margin-left: 50px;">
+    <ng-template matStepLabel>Assign</ng-template>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8">
+          <div class=" custom-card">
+            <!-- <div class="card-body"> -->
+              <div>
+              <div *ngIf = "service.checkassign">
+                <h2>Assigned List</h2>
+                <p-table #table [value]="assignedlist" [paginator]="true" [rows]="3" selectionMode="single"
+                [globalFilterFields]="['applicant_First_Name_EN', 'applicant_Middle_Name_En', 'applicant_Last_Name_EN', 'gender', 'state_Region', 'userName', 'profession', 'skill']"
+                (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()"
+                [sortMode]="'single'" sortField="assigned_service" [sortOrder]="1"> 
+                <ng-template pTemplate="caption">
+                  <!-- Optional caption -->
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                      <th pSortableColumn="applicant_First_Name_EN">First Name <p-sortIcon field="applicant_First_Name_EN"></p-sortIcon></th>
+                      <th pSortableColumn="applicant_Middle_Name_En">Middle Name <p-sortIcon field="applicant_Middle_Name_En"></p-sortIcon></th>
+                      <th pSortableColumn="applicant_Last_Name_EN">Last Name <p-sortIcon field="applicant_Last_Name_EN"></p-sortIcon></th>
+                      <th pSortableColumn="gender">Gender <p-sortIcon field="gender"></p-sortIcon></th>
+                      <th pSortableColumn="state_Region">Region <p-sortIcon field="state_Region"></p-sortIcon></th>
+                      <th pSortableColumn="userName">Phone <p-sortIcon field="userName"></p-sortIcon></th>
+                      <th pSortableColumn="profession">Profession <p-sortIcon field="profession"></p-sortIcon></th>
+                      <th pSortableColumn="skill">Skill <p-sortIcon field="skill"></p-sortIcon></th>
+                      <th pSortableColumn="assigned_service">Service Area <p-sortIcon field="assigned_service"></p-sortIcon></th>
+                    <th></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-volunteer>
+                  <tr [pSelectableRow]="volunteer">
+                    <td>{{ volunteer.applicant_First_Name_EN }}</td>
+                    <td>{{ volunteer.applicant_Middle_Name_En }}</td>
+                    <td>{{ volunteer.applicant_Last_Name_EN }}</td>
+                    <td>{{ volunteer.gender }}</td>
+                    <td>{{ volunteer.state_Region }}</td>
+                    <td>{{ volunteer.userName }}</td>
+                    <td>{{volunteer.profession}}</td>
+                    <td>{{volunteer.skill}}</td>
+                    <td>{{volunteer.assigned_service}}</td>
+                    <td><p-button (click)="showDialog2(volunteer)">Show Profile</p-button></td>
+                    
+                   
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+             <div >
+           
+              <!-- <form [formGroup]="backgroundForm" (ngSubmit)="submitForm()">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Educational Status</mat-label>
+                      <mat-select placeholder="Select Status" formControlName="education_status" (selectionChange)="onSelectProfession($event.value)">
+                        <mat-option [value]="'professional'">Professional</mat-option>
+                        <mat-option [value]="'non-professional'">Non Professional</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Gender</mat-label>
+                      <mat-select formControlName="gender">
+                        <mat-option value="Male">Male</mat-option>
+                        <mat-option value="Female">Female</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4">
+                   <mat-form-field class="example-full-width">
+                    <mat-label>Region</mat-label>
+                    <mat-select formControlName="state_region">
+                      <mat-option *ngFor="let region of regions" [value]="region.description">
+                        {{ region.description }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  </div>
+                  <div class="col-md-10">
+                    <div class="col-md-4" *ngIf="isProfession">
+                      <mat-form-field class="example-full-width">
+                        <mat-label>Profession</mat-label>
+                        <mat-select placeholder="Select Field Of Study" formControlName="profession" required>
+                          <mat-option [value]="'Doctor'">Doctor</mat-option>
+                          <mat-option [value]="'Engineer'">Engineer</mat-option>
+                          <mat-option [value]="'Nurse'">Nurse</mat-option>
+                          <mat-option [value]="'Others'">Others</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" mat-raised-button color="primary">Submit</button>
+              </form> -->
+  
+              <!-- PrimeNG Table to display fetched data -->
+             <div *ngIf="!service.checkassign" class="top-n-volunteers">
+              
+  <input type="number" pInputText class="top-n-input" placeholder="Select Top N Volunteers" [(ngModel)]="numberToSelect">
+  <button type="button" mat-raised-button color="primary" class="top-n-button" label="Select" (click)="selectTopNVolunteers(numberToSelect)">Select</button>
+  <p-slider [(ngModel)]="rows" [style]="{'width': '150px'}"></p-slider>
+  <!-- <label style="margin-left: 10px;">Rows per page: {{rows}}</label> -->
+  <div style="margin-top: 0.6%;">
+    <div style="display: flex; align-items: flex-end;">
+      <mat-form-field class="example-full-width" appearance="outline" style="flex: 1; margin-right: 5%;">
+        <mat-label translate>Service Area</mat-label>
+        <mat-select
+          [(ngModel)]="Volunteership.assigned_service"
+          name="service_Area" required (selectionChange)="onServiceAreaChange($event)"
+        >
+          <mat-option
+            *ngFor="let area of serviceAreas"
+            [value]="area.english_description"
+            >{{ area.english_description }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="date-range-field" style="flex: 1;">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Start date"  #startInput>
+          <input matEndDate placeholder="End date"  #endInput>
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <div style="margin-left: 1%; margin-bottom: 5.5%;">
+      <button type="button" mat-raised-button color="primary"  (click)="applyFilterByButton(startInput.value, endInput.value)">Filter By Date</button>
+    </div>
+
+      <!-- <div style="margin-left: 1%; margin-bottom: 4%;">
+        <button type="button" mat-raised-button color="primary"  (click)=" filterByServiceArea()">Filter By Service Area</button>
+
+    </div> -->
+      <!-- <button mat-button class="top-n-button" (click)="applyFilterByButton(startInput.value, endInput.value)">Filter</button> -->
+    </div>
+    
+    
+    
+</div>
+</div>
+
+              
+              <div *ngIf = "!service.checkassign" class="card">
+                <div class="table-container">
+                  <p-table #table [value]="filteredVolunteers" [paginator]="true" [rows]="rows" 
+                           [rowsPerPageOptions]="[3, 5, 10, 20, 50]"
+                           selectionMode="multiple" [(selection)]="selectedVolunteers"
+                           [globalFilterFields]="['applicant_First_Name_EN','applicant_Middle_Name_En','applicant_Last_Name_EN','gender','state_Region','userName','profession','skill']"
+                           (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()">
+                    
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+                        <th>Gender</th>
+                        <th>Region</th>
+                        <th>Phone</th>
+                        <th>Profession</th>
+                        <th>Skill</th>
+                        <th>Status</th>
+                        <th>Service Area</th>
+                      </tr>
+                      <tr>
+                        <th></th>
+                        <th><input type="text" pInputText placeholder="Filter First Name" [(ngModel)]="filterFirstName" (input)="applyFilter()"></th>
+                        <th><input type="text" pInputText placeholder="Filter Middle Name" [(ngModel)]="filterMiddleName" (input)="applyFilter()"></th>
+                        <th><input type="text" pInputText placeholder="Filter Last Name" [(ngModel)]="filterLastName" (input)="applyFilter()"></th>
+                        <th><input type="text" pInputText placeholder="Filter Gender" [(ngModel)]="filterGender" (input)="applyFilter()"></th>
+                        <th><input type="text" pInputText placeholder="Filter Region" [(ngModel)]="filterRegion" (input)="applyFilter()"></th>
+                        <th><input type="text" pInputText placeholder="Filter Phone" [(ngModel)]="filterPhone" (input)="applyFilter()"></th>
+                        <th><input type="text" pInputText placeholder="Filter Profession" [(ngModel)]="filterprofession" (input)="applyFilter()"></th>
+                        <th><input type="text" pInputText placeholder="Filter Skill" [(ngModel)]="filterskill" (input)="applyFilter()"></th>
+                        <th><input type="text" pInputText placeholder="Filter Status" [(ngModel)]="filterflag_status" (input)="applyFilter()"></th>
+                        <th><input type="text" pInputText placeholder="Filter Service" [(ngModel)]="filterservice" (input)="applyFilter()"></th>
+
+                      </tr>
+                    </ng-template>
+                
+                    <ng-template pTemplate="body" let-volunteer>
+                      <tr [pSelectableRow]="volunteer">
+                        <td><p-tableCheckbox [value]="volunteer"></p-tableCheckbox></td>
+                        <td>{{ volunteer.applicant_First_Name_EN }}</td>
+                        <td>{{ volunteer.applicant_Middle_Name_En }}</td>
+                        <td>{{ volunteer.applicant_Last_Name_EN }}</td>
+                        <td>{{ volunteer.gender }}</td>
+                        <td>{{ volunteer.state_Region }}</td>
+                        <td>{{ volunteer.userName }}</td>
+                        <td>{{ volunteer.profession }}</td>
+                        <td>{{ volunteer.skill }}</td>
+                        
+                        <td>
+                          <span *ngIf="volunteer.flag_status === '1'">Ok</span>
+                          <span *ngIf="volunteer.flag_status === '2'">Warning</span>
+                        </td>
+                        <td>{{ volunteer.englishDescriptions.join(', ') }}</td>
+                      </tr>
+                    </ng-template>
+                
+                    <ng-template pTemplate="paginatorleft">
+                      <!-- Custom content for paginator left if needed -->
+                    </ng-template>
+                
+                    <ng-template pTemplate="paginatorright">
+                      <div style="text-align: right;">
+                        <label>Total: {{table.totalRecords}}</label>
+                      </div>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div>
+              
+            <div *ngIf = "!service.checkassign">
+            <button type="button" mat-raised-button color="primary" (click)="assignSelected()">Assign Selected</button>
+          </div>
+            <div *ngIf = "!service.checkassign" style="margin-top: 50px;">
+              <h2>Assigned List</h2>
+              <p-table #table [value]="assignedlist" [paginator]="true" [rows]="3" selectionMode="single"
+              [globalFilterFields]="['applicant_First_Name_EN', 'applicant_Middle_Name_En', 'applicant_Last_Name_EN', 'gender', 'state_Region', 'userName', 'profession', 'skill']"
+              (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect()"
+              [sortMode]="'single'" sortField="assigned_service" [sortOrder]="1"> <!-- Initial sort settings -->
+          
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th pSortableColumn="applicant_First_Name_EN">First Name <p-sortIcon field="applicant_First_Name_EN"></p-sortIcon></th>
+                      <th pSortableColumn="applicant_Middle_Name_En">Middle Name <p-sortIcon field="applicant_Middle_Name_En"></p-sortIcon></th>
+                      <th pSortableColumn="applicant_Last_Name_EN">Last Name <p-sortIcon field="applicant_Last_Name_EN"></p-sortIcon></th>
+                      <th pSortableColumn="gender">Gender <p-sortIcon field="gender"></p-sortIcon></th>
+                      <th pSortableColumn="state_Region">Region <p-sortIcon field="state_Region"></p-sortIcon></th>
+                      <th pSortableColumn="userName">Phone <p-sortIcon field="userName"></p-sortIcon></th>
+                      <th pSortableColumn="profession">Profession <p-sortIcon field="profession"></p-sortIcon></th>
+                      <th pSortableColumn="skill">Skill <p-sortIcon field="skill"></p-sortIcon></th>
+                      <th pSortableColumn="assigned_service">Service Area <p-sortIcon field="assigned_service"></p-sortIcon></th>
+                      <th></th>
+                      <th></th>
+                  </tr>
+              </ng-template>
+          
+              <ng-template pTemplate="body" let-volunteer>
+                  <tr [pSelectableRow]="volunteer">
+                      <td>{{ volunteer.applicant_First_Name_EN }}</td>
+                      <td>{{ volunteer.applicant_Middle_Name_En }}</td>
+                      <td>{{ volunteer.applicant_Last_Name_EN }}</td>
+                      <td>{{ volunteer.gender }}</td>
+                      <td>{{ volunteer.state_Region }}</td>
+                      <td>{{ volunteer.userName }}</td>
+                      <td>{{ volunteer.profession }}</td>
+                      <td>{{ volunteer.skill }}</td>
+                      <td>{{ volunteer.assigned_service }}</td>
+                      <td><p-button (click)="showDialog(volunteer)">Show Profile</p-button></td>
+                      <td><p-button (click)="showdialogflag(volunteer)">Update Status</p-button></td>
+                  </tr>
+              </ng-template>
+          </p-table>
+          
+            </div>
+      <!-- Dialog for Status Update -->
+<p-dialog header="Update Status" [(visible)]="displayDialog" [modal]="true" [responsive]="true" [style]="{width: '500px'}">
+  <div class="row">
+    <div class="col col-md-4" >
+      <button type="button" pButton label="Ok" (click)="setStatus('1')" style="background-color: green; color: white; width: 100%;"></button>
+    </div>
+  
+    <div class="col col-md-4">
+      <button type="button" pButton label="Warning" (click)="setStatus('2')" style="background-color: yellow; color: black; width: 100%; margin-right: 10px;"></button>
+    </div>
+    <div  class="col col-md-4">
+      <button type="button" pButton label="Banned" (click)="setStatus('3')" style="background-color: red; color: white; width: 100%; margin-right: 10px;"></button>
+    </div>
+  </div>
+</p-dialog>
+
+            <div class="card flex justify-content-center">
+              <p-dialog header="Volunteer Profile" [(visible)]="visible" [modal]="true" [style]="{ width: '60rem' }">
+                <ng-template pTemplate="header">
+                  <div class="flex flex-column align-items-center justify-content-center gap-2">
+                    <!-- <img *ngIf="selectedVolunteer?.photo" 
+                    [src]="'data:image/jpeg;base64,' + selectedVolunteer?.photo"  alt="Customer Photo" class="customer-photo">-->
+                    <div *ngIf="selectedVolunteer?.photo" class="card-avatar"> 
+                      <img   class="img-avatar" [src]="documentupload" alt="Uploaded Document" />
+                    </div>
+                    <p-avatar *ngIf="!selectedVolunteer?.photo"  shape="circle" size="xlarge"></p-avatar>
+                    <!-- <span class="font-bold white-space-nowrap">
+                      {{ selectedVolunteer?.applicant_First_Name_EN }} {{ selectedVolunteer?.applicant_Middle_Name_En }} {{ selectedVolunteer?.applicant_Last_Name_EN }}
+                    </span> -->
+                  </div>
+                </ng-template>
+                <div class="row">
+                  <div class="col col-md-4">
+
+                    <div class="p-fluid">
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Full Name:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.applicant_First_Name_EN + ' ' + selectedVolunteer?.applicant_Middle_Name_En + ' ' + selectedVolunteer?.applicant_Last_Name_EN" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Gender:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.gender" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field >
+                          <mat-label>Region:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.state_Region" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Phone:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.userName" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Profession:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.profession" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Skill:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.skill" disabled>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col col-md-4">
+
+                    <div class="p-fluid">
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Age:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.age" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Field:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.field" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field >
+                          <mat-label>Kebele:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.kebele" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Nationality:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.nationality" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Language:</mat-label>
+                          <input matInput  (click)="openLanguageDialog()" readonly>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Volunteer Eperience:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.volunteer_eperience" disabled>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col col-md-4">
+
+                    <div class="p-fluid">
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Is Disablity:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.is_disabled" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Disabled:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.d_status" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field >
+                          <mat-label>Education level:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.education_level" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Occupational Responsibility:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.occupational_responsibility" disabled>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Service Area:</mat-label>
+                          <input  matInput  (click)="openserviceDialog()" readonly>
+                        </mat-form-field>
+                      </div>
+                      <div class="p-field">
+                        <mat-form-field>
+                          <mat-label>Volunteer Eperience:</mat-label>
+                          <input matInput [value]="selectedVolunteer?.volunteer_eperience" disabled>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <ng-template pTemplate="footer">
+                  <p-button label="Done" class="p-button-outlined p-button-secondary" (click)="visible = false"></p-button>
+                </ng-template>
+              </p-dialog>
+            </div>
+            
+            <p-dialog header="Service Area" [(visible)]="servicedialog" [modal]="true" [style]="{ width: '600px' }">
+              <p-table [value]="services">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Service Area</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-volunteer>
+                  <tr>
+                    <td>{{ volunteer.english_description }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+              
+              <ng-template pTemplate="footer">
+                <p-button label="Close" (click)="servicedialog = false"></p-button>
+              </ng-template>
+            </p-dialog>
+              <p-dialog header="Language" [(visible)]="visiblee" [modal]="true" [style]="{ width: '600px' }">
+              <p-table [value]="lang" >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Name</th>
+                    <th>leastening skill</th>
+                    <th>reading skill</th>
+                    <th>speacking skill</th>
+                    <th>writing skill</th>
+
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-language>
+                  <tr [pSelectableRow]="language">
+                    <td>{{ language.language }}</td>
+                    <td>{{ language.leastening_skill }}</td>
+                    <td>{{ language.reading_skill }}</td>
+                    <td>{{ language.speacking_skill }}</td>
+                    <td>{{ language.writing_skill }}</td>
+
+                  </tr>
+                </ng-template>
+              </p-table>
+              <ng-template pTemplate="footer">
+                <p-button label="Close" (click)="visiblee = false"></p-button>
+              </ng-template>
+            </p-dialog>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-toast position="bottom-right"></p-toast>
+  </div>
+  
+  
