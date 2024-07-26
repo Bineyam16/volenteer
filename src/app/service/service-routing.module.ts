@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ServiceComponent } from './service.component';
 import { RouterModule, Routes } from '@angular/router';
 import { OrganizationsComponent } from '../organizations/organizations.component';
+import { AssignComponent } from '../assign/assign.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,12 @@ const routes: Routes = [
   //   component: OrganizationsComponent,
   //   pathMatch: 'prefix'
   // },
+
+  {
+    path: "**",
+    component: AssignComponent,
+    pathMatch: "prefix",
+  },
   {
     path: "service/:formcode",
     component: ServiceComponent,
