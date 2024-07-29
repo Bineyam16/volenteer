@@ -1253,7 +1253,7 @@ if(event.selectedIndex ==3){
   }
   Close() {
     // this.router.navigate(["/task/MyTask"]);
-    window.location.href = environment.appliction;
+    window.location.href = "http://redc.xokait.com.et/en-us/MY-APPLICATIONS"
   }
 }
 export class Volunteer{

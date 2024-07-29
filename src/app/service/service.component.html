@@ -298,13 +298,13 @@
 >
   <div class="btn-group" >
 
-    <button type="button" class="btn btn-primary mr-2" (click)="displayRivew=true;serviceService.isreview=true">
+    <button type="button" [disabled]="!serviceService.actiontab" class="btn btn-primary mr-2" (click)="displayRivew=true;serviceService.isreview=true">
      {{'Review'| translate}}
   </button>
 
   
     <span class="dropdown dropup">
-      <button [disabled]="serviceService.disablefins" type="button" class="btn btn-primary dropdown-toggle mr-2"
+      <button [disabled]="serviceService.disablefins || !serviceService.actiontab" type="button" class="btn btn-primary dropdown-toggle mr-2"
         data-toggle="dropdown" >{{'Required Action'| translate}}</button>
 
       <span class="dropdown-menu">
