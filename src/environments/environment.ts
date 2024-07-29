@@ -41,8 +41,8 @@ export const environment = {
   //application
   production: false,
   _UserName:_UserName,
-  //phisicalPath: "/DesktopModules/MVC/DNNModule3/Views/Item/assets/assets/i18n/",
-  phisicalPath: "./assets/i18n/",  
+  phisicalPath: "/DesktopModules/MVC/DNNModule3/Views/Item/assets/assets/i18n/",
+  //phisicalPath: "./assets/i18n/",  
   imageUrl: Logo + "/photo_2021-12-28_11-36-08.jpg",
   imageUrl2: Logo + "/disaster.jpg",
   imageUrl3: Logo + "/blood.jpg",
