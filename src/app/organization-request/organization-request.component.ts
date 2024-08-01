@@ -440,7 +440,12 @@ onRegionChange(event: any) {
   // Get the selected region code
   const selectedRegionCode = event
   console.log('selectedRegionCode',selectedRegionCode);
-  
+  if(selectedRegionCode == '583425da-8d65-4548-9a69-7ab8c5fe308d'){
+    this.isSpecialRegion= true
+  }
+  else{
+    this.isSpecialRegion = false
+  }
   // Fetch zones based on selected region
   this.fetchZonesForRegion(selectedRegionCode);
 }
@@ -921,8 +926,12 @@ update2()
 
   this.Request=this.backgroundForm.value
   let selectedValues = this.backgroundForm.controls['administrative_arrangment'].value;
+  let selected = this.backgroundForm.controls['qualification'].value
+  let concat = selected.join(', ')
+
   let concatenatedValues = selectedValues.join(', ');
   this.Request.administrative_arrangment=concatenatedValues
+  this.Request.qualification =concat
  if( this.Request.end_date< this.Request.start_date){
   this.doblimit=true
   

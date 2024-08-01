@@ -12,6 +12,12 @@ tr.yellow {
   background-color: #f1e800 !important;
   color: black;
 }
+tr.light-red {
+  background-color: #ff4b4b; /* Light red color */
+}
+tr.gray {
+  background-color: #e7e4e4; /* Light red color */
+}
 tr.red {
   background-color: #e12600 !important;
   color: white;

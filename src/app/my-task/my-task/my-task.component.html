@@ -54,24 +54,24 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-task>
-        <tr [class.red]="task.status == 'O' 
+        <tr [class.light-red]="task.status == 'O' 
 		                     ||task.status == 'A  '
 		                     ||task.status == 'R  ' 
-		                     ||task.status == 'AS'" [class.white]="task.status == 'S' 
+		                     ||task.status == 'AS'" [class.gray]="task.status == 'S' 
                          ||task.status == 'P' 
                          ||task.status == 'B'" [class.black]="task.Minutes_late >0">
-          <td style=" border-right: 1px solid black;">{{task.orderNo}}</td>
+          <td style=" border-right: 1px solid black; font-weight: bold;">{{task.orderNo}}</td>
           <td style=" border-right: 1px solid black;" *ngIf="task.status=='O' || task.status=='A  ' ">**********</td>
 
-          <td style=" border-right: 1px solid black;" *ngIf="task.status!=='O' && task.status!=='A  ' ">
+          <td style=" border-right: 1px solid black; font-weight: bold;" *ngIf="task.status!=='O' && task.status!=='A  ' ">
             {{task.todo_comment}}</td>
-            <td style="border-right: 1px solid black;">{{task.start_date | date:'yyyy-MM-dd'}}</td>
-            <td style=" border-right: 1px solid black;">{{task.start_date | date:'hh:mm:ss a'}}</td>
+            <td style="border-right: 1px solid black; font-weight: bold;">{{task.start_date | date:'yyyy-MM-dd'}}</td>
+            <td style=" border-right: 1px solid black; font-weight: bold;">{{task.start_date | date:'hh:mm:ss a'}}</td>
  
-          <td style=" border-right: 1px solid black;">{{task.description}}</td>
-          <td style=" border-right: 1px solid black;">{{task.status}}</td>
-          <td style=" border-right: 1px solid black;">{{task.TaskType}}</td>
-          <td style=" border-right: 1px solid black;" (mouseenter)="task.showButton = true" (mouseleave)="task.showButton = false">
+          <td style=" border-right: 1px solid black; font-weight: bold;">{{task.description}}</td>
+          <td style=" border-right: 1px solid black; font-weight: bold;">{{task.status}}</td>
+          <td style=" border-right: 1px solid black; font-weight: bold;">{{task.TaskType}}</td>
+          <td style=" border-right: 1px solid black; font-weight: bold;" (mouseenter)="task.showButton = true" (mouseleave)="task.showButton = false">
             <span *ngIf="task.showButton" (click)="showMessage(task.todo_comment, task)">
               <span class="pi pi-comment"></span>
               Show message
