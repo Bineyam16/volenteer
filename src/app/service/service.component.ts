@@ -317,10 +317,17 @@ export class ServiceComponent {
       this.serviceService.getUserRolee().subscribe((response: any) =>{
         console.log(response[0].RoleId, 'responseeee');
         this.role = response[0].RoleId
-        if(this.role == '51f75ae2-2d81-4702-ba4f-2c46ac6d8d9d'){
+        console.log();
+        
+         if(this.role == '51f75ae2-2d81-4702-ba4f-2c46ac6d8d9d' && params["tskID"] == 'b9ff8af0-2790-474c-829b-b7e3ae90b2e1' ){
+          this.serviceService.actiontab = true
+          this.serviceService.disablefins = false
+        }
+       else if(this.role == '51f75ae2-2d81-4702-ba4f-2c46ac6d8d9d'){
           this.serviceService.actiontab = false
           //this.serviceService.disablefins = true
         }
+   
         else{
           this.serviceService.actiontab = true
           this.serviceService.disablefins = false
