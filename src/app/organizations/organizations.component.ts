@@ -214,7 +214,7 @@ falsetab: boolean= false
   
     this.fetchCountries();
     console.log("language", environment.Lang);
-    if (environment.lang2 === "am-et" || environment.lang2 === "am-ET") {
+    if (environment.Lang === "am-et" || environment.Lang === "am-ET") {
       this.language = "amharic";
       this.amharic = true
     } else {

@@ -5,7 +5,8 @@
       <p class="notification2-message">
         If you have already registered, you can
         <a href="http://redc.xokait.com.et/en-us/login">Login</a>. If you are not registered, you can
-        <a href="http://redc.xokait.com.et/en-us/register">Register</a> .
+        <a href="http://redc.xokait.com.et/en-us/register">Register</a> . /
+         ከተመዘገቡ በመለያ ቁጥር  እባክዎ  <a href="http://redc.xokait.com.et/en-us/login">ይግቡ</a>። ካልተመዘገቡ እባክዎ <a href="http://redc.xokait.com.et/en-us/register">ይመዝገብ</a>።
       </p>
       <!-- <button class="close" (click)="closeNotification()">×</button> -->
     </div>
@@ -16,10 +17,7 @@
   <div *ngIf="!is_approved && !isUser && !service.isreview">
     <div class="notification2" >
       <div class="notification2-content">
-        <p class="notification2-message"> First, register as an Organization. Then, after your registration, you will receive an email "Registration approval" notification from ERCS. Then you can request Volunteers.
-
-          Many Thanks
-          ERCS.</p>
+        <p class="notification2-message"> First, register as an Organization. Then, after your registration, you will receive an email "Registration approval" notification from ERCS. Then you can request Volunteers. / መጀመሪያ እንደ ድርጅት ይመዝገቡ። ከምዝገባዎ በኋላ  ከኢ.ቀ.መ.ማ "የምዝገባ ማረጋገጫ" ማሳወቂያ ኢሜይል ይደርስዎታል። ከዚያ በጎ በጎ ፈቃደኞችን መጠየቅ ይችላሉ።</p>
 
         <!-- <button class="close" (click)="closeNotification()">×</button> -->
       </div>
@@ -395,9 +393,9 @@
      
       </mat-step>
       <mat-step *ngIf="!service.isreview" >
-        <ng-template matStepLabel>Validate</ng-template>
+        <ng-template matStepLabel>{{'Validate' | translate}}</ng-template>
         <p-accordion>
-          <p-accordionTab header="Request">
+          <p-accordionTab [header]="'Request' | translate">
             <div class="card">
               <div class="card-body" id="Request">
                 <form [formGroup]="backgroundForm" (ngSubmit)="submitForm()">
@@ -603,12 +601,12 @@
               </div>
             </div>
           </p-accordionTab>
-          <p-accordionTab header="Survy">
+          <p-accordionTab [header]="'Survey' | translate">
             <div class="survey-container contentcontainer codecontainer" id="surveyy">
               <div [id]="ID2" ></div>
             </div>
           </p-accordionTab>
-          <p-accordionTab header="File">
+          <p-accordionTab [header]="'File' | translate">
             <div class="main-content" id="fileUpload">
             <app-files>
 

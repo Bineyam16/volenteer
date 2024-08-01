@@ -6,7 +6,8 @@
       <p class="notification2-message">
         If you have already registered, you can
         <a href="http://redc.xokait.com.et/en-us/login">Login</a>. If you are not registered, you can
-        <a href="http://redc.xokait.com.et/en-us/register">Register</a> .
+        <a href="http://redc.xokait.com.et/en-us/register">Register</a> . /
+         ከተመዘገቡ በመለያ ቁጥር  እባክዎ  <a href="http://redc.xokait.com.et/en-us/login">ይግቡ</a>። ካልተመዘገቡ እባክዎ <a href="http://redc.xokait.com.et/en-us/register">ይመዝገብ</a>።
       </p>
       <!-- <button class="close" (click)="closeNotification()">×</button> -->
     </div>
@@ -16,7 +17,8 @@
   </div>
   <div *ngIf="isSubmitted">
     <div class="notification1">
-      thank you, You are submitted your Registration, Once your registration is approved, you will receive a confirmation email.
+      Your Application is sent to ERCS office. Thank you for registering. 
+      / ማመልከቻዎ ወደ ኢ.ቀ.መ.ማ ቢሮ ተልኳል። ስለተመዘገቡ እናመሰግናለን።
       <!-- <button class="close">×</button> -->
     </div>
     
@@ -24,7 +26,8 @@
   </div>
   <div *ngIf="notvalid && !isUser && !isSubmitted">
     <div class="notification2">
-     You already have registered As a volunteer
+      You already have registered as a volunteer, with this application number, you can register neither as an organization nor ask for volunteer/s request /
+       በበጎ ፈቃደኝነት ስለተመዘገቡ በዚሁ መለያ ቁጥር ድጋሚ እንደኦርጋኔዜሽንው መመዝገብም ሆነ በጎ ፈቅደኞች መጠየቅ አይችሉም
       <!-- <button class="close">×</button> -->
     </div>
     
@@ -52,28 +55,34 @@
           <div *ngIf = "!service.isreview">
             <mat-step [stepControl]="secondFormGroup">
               <ng-template matStepLabel>{{'Terms and Conditions'| translate}}</ng-template>
-        
+              <!-- <mat-card *ngIf="language !== 'amharic'"  style="max-width: 800px;">
+                <mat-card-content>
               <div class="main-content" *ngIf="!amharic">
                   <div class="main-content" >
                       <div class="container-fluid">
                           <div class="terms-and-conditions" *ngIf="!amharic">
                               <h2>{{'Terms and Conditions'| translate}}</h2>
                               <p>
-                                  Volunteering in the International Red Cross and Red Crescent Movement is an activity motivated by the free will of the person volunteering, and not by a desire for material or financial gain, or by external social, economic, or political pressure. It is primarily intended to benefit vulnerable people or their communities.
+                                  Volunteering in the International Red Cross and Red Crescent Movement is an activity motivated by the free will of the person volunteering,
+                                   and not by a desire for material or financial gain, or by external social, economic, or political pressure. It is primarily intended to benefit vulnerable people or their communities.
                               </p>
                               <p>
-                                  ERCS recognizes that volunteers are the true foundation of its humanitarian and development work for vulnerable people throughout the country, and they are its most important resources.
+                                  ERCS recognizes that volunteers are the true foundation of its humanitarian and
+                                   development work for vulnerable people throughout the country, and they are its most important resources.
                               </p>
                               <p>
-                                  Partner organizations recognize that volunteers are a vital human resource. As such, your commitment is required to create a protective shield to support volunteers by:
+                                  Partner organizations recognize that volunteers are a vital human resource.
+                                   As such, your commitment is required to create a protective shield to support volunteers by:
                               </p>
                               <ul>
                                   <li>Providing volunteers with appropriate infrastructure for the discharge of their duties through relevant training and induction.</li>
                                   <li>Providing appropriate information to their volunteers on the nature and condition of their voluntary assignment.</li>
                                   <li>Ensuring safe, secure, and healthy conditions at work, in accordance with the nature of the volunteer activity.</li>
-                                  <li>Ensuring that an appropriate policy is in place for volunteers, covering eventual risks of accident or illness directly related to the volunteer activity, in line with organizational policies.</li>
+                                  <li>Ensuring that an appropriate policy is in place for volunteers, covering eventual risks of accident or
+                                     illness directly related to the volunteer activity, in line with organizational policies.</li>
                                   <li>Reimbursing any expenses incurred by volunteers in fulfilling their volunteer tasks, up to reasonable limits.</li>
-                                  <li>Being aware of any damages or injuries their volunteers may cause by any action or omission in the course of their voluntary work, provided that the volunteers act with due diligence and in good faith.</li>
+                                  <li>Being aware of any damages or injuries their volunteers may cause by any action or omission in the course of their voluntary work,
+                                     provided that the volunteers act with due diligence and in good faith.</li>
                                   <li>Recognizing the contribution of volunteers with a token of appreciation or issuing a certificate acknowledging their contribution at the end of their service.</li>
                               </ul>
                               <p>
@@ -90,7 +99,107 @@
                       </div>
                   </div>
               </div>
-              <div class="main-content" *ngIf="amharic">
+            </mat-card-content>
+          </mat-card> -->
+          <mat-card *ngIf="language !== 'amharic'"  style="max-width: 800px;">
+            <mat-card-content>
+              
+              <div >
+              <div class="main-content" >
+                <div class="container-fluid">
+                    <div class="rights-benefits">
+                      <h2>{{'Terms and Conditions'| translate}}</h2>
+                        <p>
+                          Volunteering in the International Red Cross and Red Crescent Movement is an activity motivated by the free will of the person volunteering,
+                          and not by a desire for material or financial gain, or by external social, economic, or political pressure. It is primarily intended to benefit vulnerable people or their communities.
+                        </p>
+                        <ul>
+                          <li>Providing volunteers with appropriate infrastructure for the discharge of their duties through relevant training and induction.</li>
+                          <li>Providing appropriate information to their volunteers on the nature and condition of their voluntary assignment.</li>
+                          <li>Ensuring safe, secure, and healthy conditions at work, in accordance with the nature of the volunteer activity.</li>
+                          <li>Ensuring that an appropriate policy is in place for volunteers, covering eventual risks of accident or
+                             illness directly related to the volunteer activity, in line with organizational policies.</li>
+                          <li>Reimbursing any expenses incurred by volunteers in fulfilling their volunteer tasks, up to reasonable limits.</li>
+                          <li>Being aware of any damages or injuries their volunteers may cause by any action or omission in the course of their voluntary work,
+                             provided that the volunteers act with due diligence and in good faith.</li>
+                          <li>Recognizing the contribution of volunteers with a token of appreciation or issuing a certificate acknowledging their contribution at the end of their service.</li>
+                      </ul>
+                      <form [formGroup]="terms">
+                        <div class="form-check">
+                            <!-- <input type="checkbox" formControlName="agreeTerms" class="form-check-input" id="agreeTerms" required> -->
+                            <mat-checkbox class="example-margin" required  formControlName="agreeTerms"></mat-checkbox>
+                            <label class="form-check-label" for="agreeTerms">I have read and agree to the Terms & Conditions</label>
+                        </div>
+                    </form>
+                    <button type="button" mat-button matStepperNext class="next-button" [disabled]="terms.invalid" (click)="ServiceComponent.savee()">{{'Next' | translate}}</button>
+                        <!-- <form [formGroup]="rights">
+                            <div class="form-check">
+                                <input type="checkbox" formControlName="agreeRights" class="form-check-input" id="agreeRights" required>
+                                <label class="form-check-label" for="agreeRights">I Read Rights and Benefits</label>
+                            </div>
+                        </form> -->
+                      </div>
+                </div>
+            </div>
+
+          
+              </div>
+              </mat-card-content>
+            </mat-card>
+            <mat-card *ngIf="language === 'amharic'"  style="max-width: 800px;">
+              <mat-card-content>
+                
+                <div >
+                  <div class="main-content" >
+                    <div class="container-fluid">
+                     
+                    </div>
+                </div>
+                  <div class="main-content" >
+                    <div class="container-fluid">
+                        <div class="rights-benefits">
+                          <h2>{{'Terms and Conditions'| translate}}</h2>
+                          
+                          <p>
+                            በዓለም አቀፍ ቀይ መስቀልና በቀይ ጨረቃ እንቅስቃሴ ውስጥ በበጎ ፈቃደኛ ለመሆን ከነፃ ፈቃድ የሚመጣ ውሳኔ እንጂ ቁሳዊ ወይም የገንዘብ ትርፍ የማግኘት ፍላጎት ወይም በውጫዊ ማህበራዊ፣ ኢኮኖሚያዊ ወይም ፖለቲካዊ ጫና አይደለም። በዋነኝነት ዓላማው ለአደጋ የተጋለጡ ሰዎችን ወይም ማኅበረሰቦቻቸውን ለመጥቀም ነው ።      </p>
+                          <p>
+                            ኢ.ቀ.መ.ማ በጎ ፈቃደኛ ሠራተኞች በመላ አገሪቱ ለሚገኙ ለአደጋ የተጋለጡ ሰዎች የበጎ አድራጎትና የልማት ሥራው እውነተኛ መሠረት እንደሆኑና በጣም አስፈላጊ የሆኑት ሀብቶቹም እንደሆኑ ይገነዘባል። </p>
+                          <p>
+                            የበጎ ፈቃደኛ ሠራተኞች ተግባር ለሰው ልጅ በጣም አስፈላጊ እንደሆኑ ተባባሪ ድርጅቶች ይገነዘባሉ ። በመሆኑም፣ በጎ ፈቃደኛ ሠራተኞችን ለመደገፍ ጥበቃ  ለማረግ ቃል መግባትህ አስፈላጊ ነው።      </p>
+                          <ul>
+                            ድርጅቶች ለበጎ ፈቃደኛ ሠራተኞች፦
+                              <li>ተያያዥ ሥልጠና በመስጠትና በማሠልጠን ኃላፊነታቸውን ለመወጣት የሚያስችል ተስማሚ የሆነ የመሠረተ ልማት እንዲያገኙ ማድረግ።</li>
+                              <li>በፈቃደኝነት ስለተመደቡበት ቦታና ሁኔታ ተገቢውን መረጃ መስጠት።</li>
+                              <li>በፈቃደኝነት ስለተመደቡበት ቦታና ሁኔታ ተገቢውን መረጃ መስጠት።</li>
+                              <li>ከድርጅታዊ ፖሊሲዎች ጋር በሚስማማ መንገድ ከፈቃደኛ ሠራተኞች እንቅስቃሴ ጋር በቀጥታ የተያያዙ አደጋዎችን ወይም በሽታዎችን የሚሸፍን ተስማሚ የሆነ ፖሊሲ እንዲከናወን ማድረግ።</li>
+                              <li>በፈቃደኝነት የሚያከናውኑትን ሥራ ለማከናወን የሚፈጽማቸውን ማንኛውንም ወጪ እስከ ገደብ ድረስ ይክፈሉ።</li>
+                              <li>በፈቃደኝነት በሚያከናውኑት ሥራ ላይ ምንም ዓይነት ጉዳት እንዳደረሰባቸው ተገቢውን ጥበቃ ማድረግ።</li>
+                              <li>አገልግሎታቸውን ሲጨርሱ ያበረከቱትን አስተዋጽኦ የሚገልጥ የምሥክር ወረቀት ማውጣት።</li>
+                          </ul>
+                          <p>
+                            በአብዛኛው ተባባሪ ድርጅቶች ለፈቃደኛ ሠራተኞች ጥሩ የሥራ ሁኔታ ለመፍጠር ከላይ የተጠቀሱትን ነጥቦች ማክበርና ተግባራዊ ማድረግ ይኖርባቸዋል ።
+                          </p>
+                            <form >
+                              <div class="form-check">
+                                <!-- <input type="checkbox" formControlName="agreeRights" class="form-check-input custom-checkbox" id="agreeRights" required> -->
+                                <mat-checkbox class="example-margin" required  formControlName="agreeTerms"></mat-checkbox> 
+                                <!-- <input type="checkbox" formControlName="agreeTerms" class="form-check-input" id="agreeTerms" required> -->
+                                    <label class="form-check-label" for="agreeTerms">oደንብ እና ግዴታዎቸን አንብቤ  ተስማምቻለሁ</label>
+                                <!-- <label class="form-check-label custom-label" for="agreeRights">መብቶችን፣ ጥቅሞችን እና የመመሪያ መርሆችን እቀበላለሁ</label> -->
+                              </div>
+                               
+                            </form>
+                            <button type="button" mat-button matStepperNext class="next-button" [disabled]="terms.invalid" (click)="ServiceComponent.savee()">{{'Next' | translate}}</button>
+                        
+                          </div>
+                    </div>
+                </div>
+            
+                </div>
+              </mat-card-content>
+            </mat-card>
+      
+          <!-- <div class="main-content" *ngIf="amharic">
                 <div class="main-content" >
                     <div class="container-fluid" >
                         <div class="terms-and-conditions">
@@ -124,7 +233,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
           </mat-step>
           
         </div>
@@ -491,13 +600,13 @@ Update
           </mat-step>
   
           <mat-step *ngIf="!service.isreview">
-            <ng-template matStepLabel>Validate</ng-template>
+            <ng-template matStepLabel>{{'Validate' | translate}}</ng-template>
             <p-accordion>
               <!-- First Step (Terms and Conditions) -->
           
             
               <!-- Second Step (Organizational Info) -->
-              <p-accordionTab header="Organizational Info" (click)="onTabClick('Organizational Info', 0)">
+              <p-accordionTab [header]="'Organizational Info' | translate" (click)="onTabClick('Organizational Info', 0)">
                 <div class="col-md-8" style="margin-left: 15%;">
                   <div class="card">
                       <div class="card-header card-header-danger">
@@ -678,7 +787,7 @@ Update
               </p-accordionTab>
             
               <!-- Third Step (File Upload) -->
-              <p-accordionTab header="File Upload" (click)="onTabClick('File Upload', 1)">
+              <p-accordionTab [header]="'File Upload' | translate" (click)="onTabClick('File Upload', 1)">
                 <div class="main-content" id="fileUpload">
                   <app-files></app-files>
                
