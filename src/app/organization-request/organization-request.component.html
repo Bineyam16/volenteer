@@ -25,7 +25,7 @@
       
       
     </div>
-<div *ngIf="!isUser && is_approved" class="main-content" style="margin-left: 17%;">
+<div *ngIf="!isUser && is_approved || service.isreview" class="main-content" style="margin-left: 17%;">
   <ng-template matStepLabel>Personal Info</ng-template>
   <div class="container-fluid">
     <div class="row">
