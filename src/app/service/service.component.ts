@@ -324,11 +324,14 @@ export class ServiceComponent {
           this.serviceService.disablefins = false
         }
        else if(this.role == '51f75ae2-2d81-4702-ba4f-2c46ac6d8d9d'){
+        console.log('leaseappppppp hereee');
+        
           this.serviceService.actiontab = false
-          //this.serviceService.disablefins = true
+          this.serviceService.disablefins = true
         }
    
         else{
+          console.log('leaseappppppp hereee');
           this.serviceService.actiontab = true
           this.serviceService.disablefins = false
         }

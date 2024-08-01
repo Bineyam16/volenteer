@@ -304,7 +304,7 @@
 
   
     <span class="dropdown dropup">
-      <button [disabled]="serviceService.disablefins || !serviceService.actiontab" type="button" class="btn btn-primary dropdown-toggle mr-2"
+      <button [disabled]="serviceService.disablefins && !serviceService.actiontab" type="button" class="btn btn-primary dropdown-toggle mr-2"
         data-toggle="dropdown" >{{'Required Action'| translate}}</button>
 
       <span class="dropdown-menu">
