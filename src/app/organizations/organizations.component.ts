@@ -197,6 +197,8 @@ falsetab: boolean= false
       is_approved: new FormControl(null),
       about:new FormControl(null),
       registration_date: new FormControl(null),
+      vision: new FormControl(null),
+      mission: new FormControl(null)
       
     });
     this.terms= new FormGroup({
@@ -349,6 +351,9 @@ falsetab: boolean= false
                 social_media:res.procOrganization_Details[0].social_media,
                 about:res.procOrganization_Details[0].social_media,
                 registration_date:res.procOrganization_Details[0].registration_date,
+                vision:res.procOrganization_Details[0].vision,
+                mission:res.procOrganization_Details[0].mission,
+
 
               })
              
@@ -438,6 +443,9 @@ falsetab: boolean= false
    social_media: this.orgData.social_media,
    about: this.orgData.about,
    registration_date: this.orgData.registration_date,
+   vision: this.orgData.vision,
+   mission: this.orgData.mission,
+
 
 
  })}
@@ -744,6 +752,8 @@ this.getAll(this.service.licenceservice)
        social_media:res.procOrganization_Details[0].social_media,
        about:res.procOrganization_Details[0].social_media,
        registration_date:res.procOrganization_Details[0].registration_date,
+       vision:res.procOrganization_Details[0].vision,
+       mission:res.procOrganization_Details[0].mission,
        
      })
     
@@ -1073,7 +1083,9 @@ this.service.updateOrganization(this.Organization).subscribe((res:any)=>{
    website:res.procOrganization_Details[0].website,
    social_media:res.procOrganization_Details[0].social_media,
    about:res.procOrganization_Details[0].social_media,
-   registration_date:res.procOrganization_Details[0].registration_date
+   registration_date:res.procOrganization_Details[0].registration_date,
+   vision:res.procOrganization_Details[0].vision,
+   mission:res.procOrganization_Details[0].mission
  })
 
   })
@@ -1326,6 +1338,8 @@ export class Organization{
     social_media?: any
     is_approved?: any
     about?: any
+    vision?: any
+    mission?:any
   
  }
  export class LicenceService{
