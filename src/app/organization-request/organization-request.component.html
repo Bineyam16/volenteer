@@ -73,7 +73,8 @@
                       </mat-form-field> -->
                       <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label translate>Service Area</mat-label>
-                      <mat-select formControlName="region" name="stateRegion" (selectionChange)="onRegionChange($event.value)">
+                      <mat-select (selectionChange)="onSelectLanguage($event.value)" 
+                      formControlName="service_area" required>
                         <mat-option *ngFor="let serviceArea of serviceAreas" [value]="serviceArea.english_description">
                           {{ serviceArea.english_description }}
                         </mat-option>
