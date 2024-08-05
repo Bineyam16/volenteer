@@ -38,9 +38,10 @@ export const environment = {
   //ERCS_Info_mgr
   //0912346578
   //0988775533
+  //0923678907
   //application
   production: false,
-  _UserName:_UserName,
+  _UserName:"0923678907",
  // phisicalPath: "/DesktopModules/MVC/DNNModule3/Views/Item/assets/assets/i18n/",
  phisicalPath: "./assets/i18n/",  
   imageUrl: Logo + "/photo_2021-12-28_11-36-08.jpg",
