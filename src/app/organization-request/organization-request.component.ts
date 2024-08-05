@@ -127,6 +127,7 @@ export class OrganizationRequestComponent {
   zoneData: any;
   woreda: any;
   isSpecialRegion: boolean = false;
+  serviceAreas: any;
   constructor(private _formBuilder: FormBuilder,private http: HttpClient,
     public dialog: MatDialog,
     //private stepperr: CdkStepper,
@@ -343,6 +344,8 @@ export class OrganizationRequestComponent {
       this.language = "english";
       this.amharic = false
     }
+    this.servicearea()
+
 }
 // moveToNextStep(): void {
 //   this.stepper.next();
@@ -435,7 +438,18 @@ fetchZonesForRegion(regionCode: any) {
         console.error('Error fetching zone data:', error);
       }
     );}
-
+    servicearea(){
+      this.service.get_look_up_for('SERVICE AREAS').subscribe((res:any)=>{
+          
+       this.serviceAreas=res
+        console.log('serviceAreas',res);
+       // this.services = this.serviceAreas.filter((value: any) => value.lkdetail_code == this.VolunteershipLists[0].service_Area)
+       // console.log(this.services,'this.services');
+       // this.getservice(this.VolunteershipLists[0].service_Area)
+        
+        
+      })
+    }
 onRegionChange(event: any) {
   // Get the selected region code
   const selectedRegionCode = event

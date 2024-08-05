@@ -71,6 +71,14 @@
                           <mat-option value="Focal point services for other volunteer activities">Focal point services for other volunteer activities</mat-option>
                         </mat-select>
                       </mat-form-field> -->
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label translate>Service Area</mat-label>
+                      <mat-select formControlName="region" name="stateRegion" (selectionChange)="onRegionChange($event.value)">
+                        <mat-option *ngFor="let serviceArea of serviceAreas" [value]="serviceArea.english_description">
+                          {{ serviceArea.english_description }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                     </div>
                     <div class="col-md-6">
                       <mat-form-field class="example-full-width" appearance="outline">

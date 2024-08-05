@@ -213,7 +213,6 @@ falsetab: boolean= false
   }
   ngOnInit() {
     console.log(this.orgData, 'orgData');
-  
     this.fetchCountries();
     console.log("language", environment.Lang);
     if (environment.Lang === "am-et" || environment.Lang === "am-ET") {
@@ -481,7 +480,7 @@ this.service.getVolunteer().subscribe((response:any)=>{
     this.notvalid = true
   }
 })
-this.servicearea()
+
 }
 
 private setDefaultRegistrationDate(): void {
@@ -546,18 +545,7 @@ enableFormControls(){
     this.backgroundForm.controls[controlName].enable();
   });
 }
-servicearea(){
-  this.service.get_look_up_for('SERVICE AREAS').subscribe((res:any)=>{
-      
-   // this.serviceAreas=res
-    console.log('this.serviceAreas',res);
-   // this.services = this.serviceAreas.filter((value: any) => value.lkdetail_code == this.VolunteershipLists[0].service_Area)
-   // console.log(this.services,'this.services');
-   // this.getservice(this.VolunteershipLists[0].service_Area)
-    
-    
-  })
-}
+
 disableFormControls(): void {
   Object.keys(this.backgroundForm.controls).forEach(controlName => {
     const control = this.backgroundForm.controls[controlName];
